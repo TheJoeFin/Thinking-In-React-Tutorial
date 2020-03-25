@@ -60,12 +60,12 @@ class ProductTable extends React.Component {
 
     return (
       <table>
-        <thread>
+        <thead>
           <tr>
             <th>Name</th>
             <th>Price</th>
           </tr>
-        </thread>
+        </thead>
         <tbody>{rows}</tbody>
       </table>
     );
