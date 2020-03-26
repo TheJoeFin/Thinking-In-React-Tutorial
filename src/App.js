@@ -73,20 +73,6 @@ class ProductTable extends React.Component {
 }
 
 class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-    this.handleInStockChange = this.handleInStockChange.bind(this);
-  }
-
-  handleFilterTextChange(e) {
-    this.props.onFilterTextChange(e.target.value);
-  }
-
-  handleInStockChange(e) {
-    this.props.onInStockChange(e.target.checked);
-  }
-
   render() {
     const filterText = this.props.filterText;
     const inStockOnly = this.props.inStockOnly;
@@ -97,13 +83,13 @@ class SearchBar extends React.Component {
           type="text"
           placeholder="Search..."
           value={filterText}
-          onChange={this.handleFilterTextChange}
+          onChange={e => this.props.onFilterTextChange(e.target.value)}
         />
         <p>
           <input
             type="checkbox"
             checked={inStockOnly}
-            onChange={this.handleInStockChange}
+            onChange={e => this.props.onInStockChange(e.target.checked)}
           />{" "}
           Only Show Products In stock
         </p>
@@ -264,8 +250,7 @@ const PRODUCTS = [
 export default function App() {
   return (
     <div className="App">
-      <h1>Thinking in React</h1>
-      <h2>Here I have copied the code from the thinking in react page.</h2>
+      <p>Here I have copied the code from the thinking in react page.</p>
       <FilterableProductTable products={PRODUCTS} />
     </div>
   );
