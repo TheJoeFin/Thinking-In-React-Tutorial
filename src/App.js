@@ -1,35 +1,58 @@
 import React from "react";
 import "./styles.css";
 
-class ProductCategoryRow extends React.Component {
-  render() {
-    const category = this.props.category;
-
-    return (
-      <tr>
-        <th colSpan="2">{category}</th>
-      </tr>
-    );
-  }
+function ProductCategoryRow({ category }) {
+  return (
+    <tr>
+      <th colSpan="2">{category}</th>
+    </tr>
+  );
 }
 
-class ProductRow extends React.Component {
-  render() {
-    const product = this.props.product;
-    const name = product.stocked ? (
-      product.name
-    ) : (
-      <span style={{ color: "red" }}>{product.name}</span>
-    );
+// class ProductCategoryRowOld extends React.Component {
+//   render() {
+//     const category = this.props.category;
 
-    return (
-      <tr className="ProductRow">
-        <td>{name}</td>
-        <td>{product.price}</td>
-      </tr>
-    );
-  }
+//     return (
+//       <tr>
+//         <th colSpan="2">{category}</th>
+//       </tr>
+//     );
+//   }
+// }
+
+function ProductRow({ product }) {
+  const name = product.stocked ? (
+    product.name
+  ) : (
+    <span style={{ color: "red" }}>{product.name}</span>
+  );
+
+  return (
+    <tr className="ProductRow">
+      <td>{name}</td>
+      <td>{product.price}</td>
+    </tr>
+  );
 }
+
+// class ProductRowOLD extends React.Component {
+//   render() {
+//     const product = this.props.product;
+//     const name = product.stocked ? (
+//       product.name
+//     ) : (
+//       <span style={{ color: "red" }}>{product.name}</span>
+//     );
+
+//     return (
+//       <tr className="ProductRow">
+//         <td>{name}</td>
+//         <td>{product.price}</td>
+//       </tr>
+//     );
+//   }
+// }
 
 class ProductTable extends React.Component {
   render() {
@@ -72,31 +95,57 @@ class ProductTable extends React.Component {
   }
 }
 
-class SearchBar extends React.Component {
-  render() {
-    const filterText = this.props.filterText;
-    const inStockOnly = this.props.inStockOnly;
-
-    return (
-      <form className="SearchBar">
+function SearchBar({
+  filterText,
+  onFilterTextChange,
+  inStockOnly,
+  onInStockChange
+}) {
+  return (
+    <form className="SearchBar">
+      <input
+        type="text"
+        placeholder="Search..."
+        value={filterText}
+        onChange={e => onFilterTextChange(e.target.value)}
+      />
+      <p>
         <input
-          type="text"
-          placeholder="Search..."
-          value={filterText}
-          onChange={e => this.props.onFilterTextChange(e.target.value)}
-        />
-        <p>
-          <input
-            type="checkbox"
-            checked={inStockOnly}
-            onChange={e => this.props.onInStockChange(e.target.checked)}
-          />{" "}
-          Only Show Products In stock
-        </p>
-      </form>
-    );
-  }
+          type="checkbox"
+          checked={inStockOnly}
+          onChange={e => onInStockChange(e.target.checked)}
+        />{" "}
+        Only Show Products In stock
+      </p>
+    </form>
+  );
 }
+
+// class SearchBarOLD extends React.Component {
+//   render() {
+//     const filterText = this.props.filterText;
+//     const inStockOnly = this.props.inStockOnly;
+
+//     return (
+//       <form className="SearchBar">
+//         <input
+//           type="text"
+//           placeholder="Search..."
+//           value={filterText}
+//           onChange={e => this.props.onFilterTextChange(e.target.value)}
+//         />
+//         <p>
+//           <input
+//             type="checkbox"
+//             checked={inStockOnly}
+//             onChange={e => this.props.onInStockChange(e.target.checked)}
+//           />{" "}
+//           Only Show Products In stock
+//         </p>
+//       </form>
+//     );
+//   }
+// }
 
 class FilterableProductTable extends React.Component {
   constructor(props) {
