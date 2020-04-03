@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles.css";
-import { couldStartTrivia } from "typescript";
 
 function ProductCategoryRow({ category }) {
   return (
@@ -9,18 +8,6 @@ function ProductCategoryRow({ category }) {
     </tr>
   );
 }
-
-// class ProductCategoryRowOld extends React.Component {
-//   render() {
-//     const category = this.props.category;
-
-//     return (
-//       <tr>
-//         <th colSpan="2">{category}</th>
-//       </tr>
-//     );
-//   }
-// }
 
 function AddNewProduct({
   newName,
@@ -123,24 +110,6 @@ function ProductRow({ product }) {
   );
 }
 
-// class ProductRowOLD extends React.Component {
-//   render() {
-//     const product = this.props.product;
-//     const name = product.stocked ? (
-//       product.name
-//     ) : (
-//       <span style={{ color: "red" }}>{product.name}</span>
-//     );
-
-//     return (
-//       <tr className="ProductRow">
-//         <td>{name}</td>
-//         <td>{product.price}</td>
-//       </tr>
-//     );
-//   }
-// }
-
 class ProductTable extends React.Component {
   render() {
     const filterText = this.props.filterText;
@@ -207,32 +176,6 @@ function SearchBar({
     </form>
   );
 }
-
-// class SearchBarOLD extends React.Component {
-//   render() {
-//     const filterText = this.props.filterText;
-//     const inStockOnly = this.props.inStockOnly;
-
-//     return (
-//       <form className="SearchBar">
-//         <input
-//           type="text"
-//           placeholder="Search..."
-//           value={filterText}
-//           onChange={e => this.props.onFilterTextChange(e.target.value)}
-//         />
-//         <p>
-//           <input
-//             type="checkbox"
-//             checked={inStockOnly}
-//             onChange={e => this.props.onInStockChange(e.target.checked)}
-//           />{" "}
-//           Only Show Products In stock
-//         </p>
-//       </form>
-//     );
-//   }
-// }
 
 class FilterableProductTable extends React.Component {
   constructor(props) {
