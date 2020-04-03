@@ -21,6 +21,51 @@ function ProductCategoryRow({ category }) {
 //   }
 // }
 
+function AddNewProduct() {
+  let newProduct;
+
+  // category: "Sporting Goods",
+  //   price: "$49.99",
+  //   stocked: true,
+  //   name: "Football"
+
+  return(
+    <div>
+      <form>
+        <table>
+          <tbody>
+            <tr>
+              <td><label htmlFor="name">Name</label></td>
+              <td><input id="name" placeholder="enter a name..." type="text"  /></td>
+            </tr>
+            <tr>
+              <td><label htmlFor="price">Price</label></td>
+              <td><input id="price" placeholder="1" type="number" min="1" max="10000" step="1"   /></td>
+            </tr>
+            <tr>
+              <td><label htmlFor="category">Category</label></td>
+              <td>
+                <select id="category" name="Category">
+                  <option value="none" >none</option>
+                  <option value="Sporting Goods" >Sporting Goods</option>
+                  <option value="Electronics" >Electronics</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label htmlFor="isStocked">In Stock</label></td>
+              <td><input id="isStocked" type="checkbox"/></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <button>Add</button>
+        
+      </form>
+    </div>
+  );
+}
+
 function ProductRow({ product }) {
   const name = product.stocked ? (
     product.name
@@ -174,6 +219,7 @@ class FilterableProductTable extends React.Component {
   render() {
     return (
       <div>
+        <AddNewProduct />
         <SearchBar
           filterText={this.state.filterText}
           inStockOnly={this.state.inStockOnly}
