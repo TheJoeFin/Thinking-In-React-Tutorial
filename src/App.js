@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import { couldStartTrivia } from "typescript";
 
 function ProductCategoryRow({ category }) {
   return (
@@ -21,46 +22,87 @@ function ProductCategoryRow({ category }) {
 //   }
 // }
 
-function AddNewProduct() {
-  let newProduct;
-
+function AddNewProduct({
+  newName,
+  nameChanged,
+  newPrice,
+  priceChanged,
+  newCategory,
+  categoryChanged,
+  newIsStocked,
+  isStockedChanged,
+  addClicked
+}) {
   // category: "Sporting Goods",
   //   price: "$49.99",
   //   stocked: true,
   //   name: "Football"
 
-  return(
+  return (
     <div>
       <form>
         <table>
           <tbody>
             <tr>
-              <td><label htmlFor="name">Name</label></td>
-              <td><input id="name" placeholder="enter a name..." type="text"  /></td>
+              <td>
+                <label htmlFor="name">Name</label>
+              </td>
+              <td>
+                <input
+                  id="name"
+                  placeholder="enter a name..."
+                  value={newName}
+                  onChange={e => nameChanged(e.target.value)}
+                  type="text"
+                />
+              </td>
             </tr>
             <tr>
-              <td><label htmlFor="price">Price</label></td>
-              <td><input id="price" placeholder="1" type="number" min="1" max="10000" step="1"   /></td>
+              <td>
+                <label htmlFor="price">Price</label>
+              </td>
+              <td>
+                <input
+                  id="price"
+                  placeholder="1"
+                  value={newPrice}
+                  type="number"
+                  onChange={e => priceChanged(e.target.value)}
+                  min="1"
+                  max="10000"
+                  step="1"
+                />
+              </td>
             </tr>
             <tr>
-              <td><label htmlFor="category">Category</label></td>
+              <td>
+                <label htmlFor="category">Category</label>
+              </td>
               <td>
                 <select id="category" name="Category">
-                  <option value="none" >none</option>
-                  <option value="Sporting Goods" >Sporting Goods</option>
-                  <option value="Electronics" >Electronics</option>
+                  <option value="none">none</option>
+                  <option value="Sporting Goods">Sporting Goods</option>
+                  <option value="Electronics">Electronics</option>
                 </select>
               </td>
             </tr>
             <tr>
-              <td><label htmlFor="isStocked">In Stock</label></td>
-              <td><input id="isStocked" type="checkbox"/></td>
+              <td>
+                <label htmlFor="isStocked">In Stock</label>
+              </td>
+              <td>
+                <input
+                  id="isStocked"
+                  checked={newIsStocked}
+                  onChange={e => isStockedChanged(e.target.checked)}
+                  type="checkbox"
+                />
+              </td>
             </tr>
           </tbody>
         </table>
-        
-        <button>Add</button>
-        
+
+        <button onClick={e => addClicked(e.target.click)}>Add</button>
       </form>
     </div>
   );
@@ -197,11 +239,19 @@ class FilterableProductTable extends React.Component {
     super(props);
     this.state = {
       filterText: "",
-      inStockOnly: false
+      inStockOnly: false,
+      newName: "",
+      newPrice: "",
+      newIsStocked: false,
+      newCategory: "none"
     };
 
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
     this.handleInStockChange = this.handleInStockChange.bind(this);
+
+    this.newNameChanged = this.newNameChanged.bind(this);
+    this.newPriceChanged = this.newPriceChanged.bind(this);
+    this.newIsStockedChanged = this.newIsStockedChanged(this);
   }
 
   handleFilterTextChange(filterText) {
@@ -216,10 +266,55 @@ class FilterableProductTable extends React.Component {
     });
   }
 
+  newNameChanged(newName) {
+    this.setState({
+      newName: newName
+    });
+  }
+
+  newPriceChanged(newPrice) {
+    this.setState({
+      newPrice: newPrice
+    });
+  }
+
+  newIsStockedChanged(newIsStocked) {
+    this.setState({
+      newIsStocked: newIsStocked
+    });
+  }
+
+  addedNewItemClick() {
+    let newProduct = {
+      category: this.newCategory,
+      price: this.newPrice,
+      stocked: this.newIsStocked,
+      name: this.newName
+    };
+
+    return newProduct;
+
+    // {
+    //   category: "Sporting Goods",
+    //   price: "$29.99",
+    //   stocked: false,
+    //   name: "Basketball"
+    // },
+  }
+
   render() {
     return (
       <div>
-        <AddNewProduct />
+        <AddNewProduct
+          addClicked={this.addedNewItemClick}
+          newName={this.state.newName}
+          nameChanged={this.newNameChanged}
+          newPrice={this.state.newPrice}
+          priceChanged={this.newPriceChanged}
+          newIsStocked={this.state.newIsStocked}
+          isStockedChanged={this.newIsStockedChanged}
+          newCategory={this.state.newCategory}
+        />
         <SearchBar
           filterText={this.state.filterText}
           inStockOnly={this.state.inStockOnly}
@@ -343,6 +438,12 @@ const PRODUCTS = [
 ];
 
 export default function App() {
+  //this.AddNewProduct = this.AddNewProduct.bind(this);
+
+  // function newProductAdded(newProduct) {
+  //   PRODUCTS.add(newProduct);
+  // }
+
   return (
     <div className="App">
       <p>Here I have copied the code from the thinking in react page.</p>
